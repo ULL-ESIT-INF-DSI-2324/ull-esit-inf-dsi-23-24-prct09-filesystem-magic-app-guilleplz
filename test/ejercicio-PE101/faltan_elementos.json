@@ -1,0 +1,8 @@
+{
+  "capacidad": 10,
+  "numElementos": 3,
+  "elementos": [
+    {"numElemento": 10, "peso": 5, "beneficio": 10},
+    {"numElemento": 2, "peso": 10, "beneficio": 20}
+  ]
+}
