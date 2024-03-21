@@ -1,0 +1,33 @@
+TODO:
+
+- multiples usuarios interactuen con la app
+
+- carta: 
+          * ID                    --> valor numérico único
+          * Nombre                --> cadena de carácteres
+          * Coste de maná         --> valor numérico de la suma de todos los símbolos de maná necesarios para poder lanzar la carta
+          * Color                 --> enum [blanco, azul, negro, rojo, verde, incoloro, multicolor]
+          * Linea de tiempo       --> enum [tierra, criatura, encantamiento, conjuro, Instantáneo, Artefacto, Planeswalker]
+          * Rareza                --> enum [común, infrecuente, rara, mítica]
+          * texto de reglas       --> cadena de caracteres con la descripción de los efectos de la carta y cualquier regla especial que tenga
+          * Fuerza/resistencia    --> dos valores numéricos, que sólo se incluyen en aquellas cartas de tipo Criatura, e indican la fuerza y resistencia
+          * Marcas de lealtad     --> valor numérico indicando cuánta lealtad tiene un Planeswalker
+          * Valor de mercado      --> valor numérico indicando el valor de la carta en el mercado
+
+- cada usuario tiene una colección de cartas (con fs)
+
+          * Añadir cartas
+          * Modificar cartas
+          * Eliminar cartas
+          * Listar cartas
+          * Mostrar info de una carta concreta
+          * Añadir cartas
+
+- Usar chalk --> mensajes informativos (verde), mensajes de error (rojo)
+
+- Api fs 
+          * Guardar cada carta de la colección en un fichero independiente con formato JSON
+          * Los ficheros JSON correspondientes a las cartas de un usuario concreto deberán almacenarse en un directorio con el nombre de dicho usuario
+          * Cargar las cartas desde los diferentes ficheros con formato JSON almacenados en el directorio del usuario correspondiente.
+
+- usuario interactua con la linea de comandos (yargs)
