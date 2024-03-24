@@ -99,18 +99,25 @@ yargs(hideBin(process.argv))
 
   try {
   
+    // leemos las cartas del fichero y creamos el manejador
     log(chalk.green("Leyendo cartas del usuario " + argv.user + " ..."));
     const cards = Functions.LoadCards(argv.user);
     const mymanager = new CardManager(cards);
-    const myCard: Carta.Carta = Functions.CreateCard(argv);
     log(chalk.green("Lectura realizada con éxito ..."));
 
+    // Creamos la carta que queremos añadir y la añadimos
+    log(chalk.green("Añadiendo carta a la colección del usuario " + argv.user))
+    const myCard: Carta.Carta = Functions.CreateCard(argv);
     mymanager.addCard(myCard);
+    log(chalk.green("Carta añadida con éxito"))
+
+    // guardamos las cartas sobreescribiendo el fichero
+    log(chalk.green("Guardando cartas ..."))
     Functions.SaveCard(argv.user, mymanager.GetCards());
-    log(chalk.green("Carta añadida correctamente a la colección del usuario " + argv.user))
+    log(chalk.green("Cartas guardadas con éxito ..."))
   
-  } catch (error) {
-    log(chalk.red("Error al añadir la carta al usuario"  + argv.user + ":", error instanceof Error ? error.message : error));
+  } catch (error) {   // detección de errores
+    log(chalk.red("Error al añadir la carta al usuario "  + argv.user + ":", error instanceof Error ? error.message : error));
     exit;
   }
 
@@ -128,17 +135,18 @@ yargs(hideBin(process.argv))
   
   try {
     
-    // cargo las cartas del fichero
+    // cargo las cartas del fichero y creo el manejador
     log(chalk.green("Leyendo cartas del usuario " + argv.user + " ..."));
     const cards = Functions.LoadCards(argv.user);
     const mymanager = new CardManager(cards);
     log(chalk.green("Lectura realizada con éxito ..."));
 
-    //listo las cartas
+    //listo las cartas por consola
+    log(chalk.green("Listando las cartas del usuario " + argv.user + " ..."))
     mymanager.listCards();
     log(chalk.green("\ncartas listadas con éxito ..."));
 
-  } catch (error) {
+  } catch (error) { // detección de errores
 
     log(chalk.red('\nError al listar las cartas del usuario ' + argv.user + ":", error instanceof Error ? error.message : error));
 
@@ -224,16 +232,24 @@ yargs(hideBin(process.argv))
 
   try {
     
+    // leo las cartas del fichero de usuario y creo el manejador
     log(chalk.green("Leyendo cartas del usuario " + argv.user + " ..."));
     const cards = Functions.LoadCards(argv.user);
     const mymanager = new CardManager(cards);
     log(chalk.green("Lectura realizada con éxito ..."));
-    mymanager.updateCard(argv);
-    Functions.SaveCard(argv.user, mymanager.GetCards());
-    log(chalk.green("Carta actualizada correctamente ..."));
 
-  } catch (error) {
-    log(chalk.red("Error al actualizar la carta al usuario"  + argv.user + ":", error instanceof Error ? error.message : error));
+    // actualizo la carta
+    log(chalk.green("Actualizando la carta con id " + argv.id + " del usuario " + argv.user + " ..."))
+    mymanager.updateCard(argv);
+    log(chalk.green("Carta actualizada con éxito ..."));
+
+    // guardo las cartas en el fichero del usuario
+    log(chalk.green("Guardando cartas ..."));
+    Functions.SaveCard(argv.user, mymanager.GetCards());
+    log(chalk.green("Cartas guardadas con éxito ..."));
+
+  } catch (error) { // detección de errores
+    log(chalk.red("Error al actualizar la carta al usuario "  + argv.user + ":", error instanceof Error ? error.message : error));
     exit;
   }
 
@@ -257,15 +273,19 @@ yargs(hideBin(process.argv))
 
     try {
       
+      // leo las cartas del fichero del usuario y creo el manejador
       log(chalk.green("Leyendo cartas del usuario " + argv.user + " ..."));
       const cards = Functions.LoadCards(argv.user);
       const mymanager = new CardManager(cards);
       log(chalk.green("Lectura realizada con éxito ..."));
 
+      // leo la carta que se pide
+      log(chalk.green("Leyendo la carta con id " + argv.id + " del usuario " + argv.user + " ..."))
       mymanager.readSpecificCard(argv.id);
+      log(chalk.green("\nCarta leida con éxito ..."))
 
-    } catch (error) {
-    log(chalk.red("Error al leer la carta al usuario"  + argv.user + ":", error instanceof Error ? error.message : error));
+    } catch (error) { // detección de errores
+    log(chalk.red("Error al leer la carta al usuario "  + argv.user + ":", error instanceof Error ? error.message : error));
     exit;
   }
 
@@ -273,6 +293,44 @@ yargs(hideBin(process.argv))
 
 //-------------------------------------------REMOVE-------------------------------------------
 
+.command('remove', 'Elimina una carta de la colección de un usuario', {
+  user: {
+    description: 'Usuario que posee la carta a eliminar',
+    type: 'string',
+    demandOption: true
+  },
+  id: {
+    description: 'id de la carta a eliminar',
+    type: 'number',
+    demandOption: true
+  }
+}, (argv) => {
+
+  try {
+
+    // leo las cartas del fichero del usuario y creo el manejador
+    log(chalk.green("Leyendo cartas del usuario " + argv.user + " ..."));
+    const cards = Functions.LoadCards(argv.user);
+    const mymanager = new CardManager(cards);
+    log(chalk.green("Lectura realizada con éxito ..."));
+
+    // elimino la carta que se pide 
+    log(chalk.green("Eliminando carta con id " + argv.id + " ..."))
+    mymanager.removeCard(argv.id);
+    log(chalk.green("\nCarta eliminada con éxito ..."));
+
+    // sobreescribo los datos en el fichero
+    log(chalk.green("Guardando cartas ..."))
+    Functions.SaveCard(argv.user, mymanager.GetCards());
+    log(chalk.green("Cartas guardadas con éxito ..."))
+
+
+  } catch (error) { // detección de errores
+    log(chalk.red("Error al eliminar la carta al usuario "  + argv.user + ":", error instanceof Error ? error.message : error));
+    exit;
+  }
+
+})
 
 // ayuda al usuario
 .help()

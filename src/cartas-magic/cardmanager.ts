@@ -55,7 +55,13 @@ export class CardManager implements Manager {
    * @param id id de la carta a eliminar
    */
   removeCard(id: number): void {
-    
+    const index = this.cartas.findIndex((carta) => carta.ID === id);
+    // si la carta no está en el array
+    if (index == -1) {
+      throw new Error("no se ha encontrado la carta")
+    }
+
+    this.cartas.splice(index)
   }
 
   /**
