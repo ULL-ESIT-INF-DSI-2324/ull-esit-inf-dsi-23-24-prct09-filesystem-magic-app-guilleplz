@@ -37,7 +37,7 @@ export type Carta = {
   TimeLine: TimeLine;
   Rarity: Rarity;
   Rules: string;
-  Strength: Strength;
-  Loyalty: number;
   Value: number;
+  Strength: Strength | undefined;
+  Loyalty: number | undefined;
 };

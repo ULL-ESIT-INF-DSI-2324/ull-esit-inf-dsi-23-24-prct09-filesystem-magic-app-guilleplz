@@ -1,4 +1,4 @@
-import { Carta } from "./carta.js"
+import { Carta } from "./card.js"
 
 // tipo que define un array de parámetros que pueden ser numéricos o string
 type Params = (number | string)[];
@@ -15,10 +15,10 @@ interface Manager {
 }
 
 
-class CardManager implements Manager {
+export class CardManager implements Manager {
   // atributo cartas --> array de cartas
   private cartas: Carta[];
-  
+
   /**
    * Constructor de la clase, tiene un array de cartas que se inicia con las cartas en la base de datos
    * @param cartasinbd array de cartas sacadas de la base de datos
@@ -27,12 +27,20 @@ class CardManager implements Manager {
     this.cartas = cartasinbd;
   }
 
+  GetCards(): Carta[] {
+    return this.cartas;
+  }
+
   /**
    * Método que añade una carta al array de cartas
    * @param carta carta a añadir al array
    */
   addCard(carta: Carta): void {
-    
+    if (this.cartas.find((cardinbd: Carta) => cardinbd.ID === carta.ID )) {
+      throw new Error("La carta ya existe en la base de datos.");
+    } else {
+      this.cartas.push(carta)
+    }
   }
 
   /**
