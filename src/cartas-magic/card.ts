@@ -15,8 +15,8 @@ export enum TimeLine {
   encantamiento,
   conjuro,
   instantaneo,
-  Artefacto,
-  Planeswalker
+  artefacto,
+  planeswalker
 }
 
 export enum Rarity {

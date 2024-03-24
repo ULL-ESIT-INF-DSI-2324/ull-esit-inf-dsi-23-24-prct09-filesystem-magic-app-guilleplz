@@ -34,10 +34,11 @@ export function LoadCards(user: string): Carta.Carta[] {
   const stats = fs.statSync(fileName);
 
   // si el fichero está vacío
-  if (stats.size === 0) {
+  if (stats.size === 2) {
     
     // devolvemos un array vacío
     console.log(chalk.green("No se encontró colección, creando una nueva colección al usuario " + user));
+    fs.writeFileSync(fileName, JSON.stringify([]));
     return []
     
   } else { // si el fichero tiene contenido creamos las cartas y devolvemos el array de cartas

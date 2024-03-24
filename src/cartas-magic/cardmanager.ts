@@ -61,7 +61,7 @@ export class CardManager implements Manager {
       throw new Error("no se ha encontrado la carta")
     }
 
-    this.cartas.splice(index)
+    this.cartas.splice(index, 1)
   }
 
   /**
@@ -141,8 +141,6 @@ export class CardManager implements Manager {
         case Color.multicolor:
           console.log("Color: " + chalk.red("mu") + chalk.green("lti") + chalk.blue("col") + chalk.yellow("or"));
           break;
-        default:
-          throw new Error("Error al manejar la rareza de la carta")
       }
       
       // diferencio entre las lineas de tiempo
@@ -168,8 +166,6 @@ export class CardManager implements Manager {
         case 6:
           console.log("Linea de tiempo: planeswalker");
           break;
-        default:
-          throw new Error("error al manejar la linea de tiempo de la carta")
       }
 
       // diferencio entre las rarezas
@@ -189,8 +185,6 @@ export class CardManager implements Manager {
         case 4:
           console.log("Rareza: legendaria");
           break;
-        default:
-          throw new Error("Error al manejar la rareza de la carta")
       }
       console.log("Reglas: " + card.Rules);
       console.log("Fuerza / resistencia: " + (card.Strength || "No aplica"));

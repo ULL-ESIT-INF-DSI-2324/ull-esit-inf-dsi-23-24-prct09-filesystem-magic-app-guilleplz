@@ -9,7 +9,7 @@ describe('Mochila', () => {
     mochila.setBeforeHook(() => console.log('Leyendo archivo ejemplocsv.csv...'));
     mochila.setAfterHook(() => console.log('Archivo leído correctamente.'));
 
-    const [beneficios, pesos] = await mochila.procesar('ejemplocsv.csv');
+    const [beneficios, pesos] = await mochila.procesar('./ficheros_pruebas/ejemplocsv.csv');
 
     expect(beneficios).to.eql([10, 20, 30]);
     expect(pesos).to.eql([5, 10, 15]);
@@ -21,7 +21,7 @@ describe('Mochila', () => {
     mochila.setBeforeHook(() => console.log('Leyendo archivo ejmplo.json...'));
     mochila.setAfterHook(() => console.log('Archivo leído correctamente.'));
 
-    const [beneficios, pesos] = await mochila.procesar('ejemplo.json');
+    const [beneficios, pesos] = await mochila.procesar('./ficheros_pruebas/ejemplo.json');
 
     expect(beneficios).to.eql([10, 20, 30]);
     expect(pesos).to.eql([5, 10, 15]);
