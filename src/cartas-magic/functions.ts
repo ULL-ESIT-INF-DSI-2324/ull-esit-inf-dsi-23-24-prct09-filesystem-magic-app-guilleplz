@@ -37,7 +37,7 @@ export function LoadCards(user: string): Carta.Carta[] {
   if (stats.size === 0) {
     
     // devolvemos un array vacío
-    console.log(chalk.blue("No se encontró colección, creando una nueva colección al usuario " + user));
+    console.log(chalk.green("No se encontró colección, creando una nueva colección al usuario " + user));
     return []
     
   } else { // si el fichero tiene contenido creamos las cartas y devolvemos el array de cartas
@@ -58,7 +58,6 @@ export function LoadCards(user: string): Carta.Carta[] {
       Value: carta.Value
     }));
 
-    console.log(chalk.blue("Cartas leidas correctamente ..."));
     return cards;
 
   }
